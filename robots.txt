@@ -1,0 +1,21 @@
+# Robots.txt generado por WP Static Architect
+User-agent: *
+Allow: /
+
+Sitemap: https://jessica.cabellosalirrosas.com/sitemap.xml
+
+# Directivas de Rastreo para Motores de Inteligencia Artificial (GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /

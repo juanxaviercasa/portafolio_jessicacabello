@@ -1,0 +1,10 @@
+# ==========================================
+# Netlify _redirects generados por WP Static Architect
+# ==========================================
+
+/wp-login.php    /    301
+/wp-admin/*      /    301
+/xmlrpc.php      /    404
+
+# Fallback 404 personalizado
+/*    /404.html    404

@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "include": [
+        "/*"
+    ],
+    "exclude": [
+        "/wp-static-arquitect-assets/*",
+        "/wp-content/uploads/*",
+        "/search-index.json",
+        "/sitemap.xml",
+        "/robots.txt",
+        "/llms.txt"
+    ]
+}

@@ -1,0 +1,15 @@
+# ==========================================
+# Netlify _headers generados por WP Static Architect
+# ==========================================
+
+/wp-content/uploads/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/wp-static-arquitect-assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
