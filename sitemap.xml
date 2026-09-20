@@ -409,12 +409,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jessica.cabellosalirrosas.com/category/uncategorized/</loc>
-    <lastmod>2026-09-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://jessica.cabellosalirrosas.com/tag/activacion-de-conocimientos-previos/</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -1499,5 +1493,23 @@
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jessica.cabellosalirrosas.com/category/comprension-lectora/</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jessica.cabellosalirrosas.com/category/atencion-en-el-aula/</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jessica.cabellosalirrosas.com/category/escritura-creativa/</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

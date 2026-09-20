@@ -72,7 +72,12 @@ Este archivo sigue el estándar abierto /llms.txt para facilitar a agentes de In
 - [Motivación en el aula](https://jessica.cabellosalirrosas.com/category/motivacion-en-el-aula/): Estrategias para despertar interés, participación y confianza.
 - [PNL aplicada](https://jessica.cabellosalirrosas.com/category/pnl-aplicada/): Ideas para explorar la Programación Neurolingüística con criterio práctico.
 - [Recursos docentes](https://jessica.cabellosalirrosas.com/category/recursos-docentes/): Materiales y propuestas para llevar a clase.
-- [Uncategorized](https://jessica.cabellosalirrosas.com/category/uncategorized/): Inicio
+- [Comprensión Lectora](https://jessica.cabellosalirrosas.com/category/comprension-lectora/): Estrategias antes, durante y después de leer, inferencias y organizadores gráficos.
+- [Atención en el Aula](https://jessica.cabellosalirrosas.com/category/atencion-en-el-aula/): Pausas activas, señales silenciosas y rutinas para el enfoque en primaria.
+- [Expresión Oral](https://jessica.cabellosalirrosas.com/category/comunicacion/): Dinámicas de hablar en público, modulación de voz y debates escolares.
+- [Escritura Creativa](https://jessica.cabellosalirrosas.com/category/escritura-creativa/): Redacción de cuentos, vencer la hoja en blanco y mapas de historias.
+- [PNL Aplicada](https://jessica.cabellosalirrosas.com/category/pnl-aplicada/): Técnicas de PNL, anclajes de calma, rapport y clima de aula.
+- [Recursos Docentes](https://jessica.cabellosalirrosas.com/category/recursos-docentes/): Fichas imprimibles, rúbricas y materiales prácticos.
 El libro
 Recursos
 Blog
