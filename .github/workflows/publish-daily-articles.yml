@@ -1,0 +1,53 @@
+name: Publicación Editorial Escalonada (3 al día)
+
+on:
+  schedule:
+    # 3 veces al día en horarios estratégicos (Hora Perú UTC-5):
+    # 13:00 UTC = 08:00 AM Perú (Mañana)
+    # 19:00 UTC = 02:00 PM Perú (Tarde)
+    # 01:00 UTC = 08:00 PM Perú (Noche)
+    - cron: '0 13 * * *'
+    - cron: '0 19 * * *'
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'Número de artículos a publicar en este disparo'
+        required: false
+        default: '1'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Ejecutar publicador editorial
+        run: |
+          COUNT="${{ github.event.inputs.count || 1 }}"
+          python scripts/publish_article.py --count "$COUNT"
+
+      - name: Confirmar y subir cambios a main
+        run: |
+          git config user.name "Editorial Bot (Jessica Cabello)"
+          git config user.email "bot@jessica.cabellosalirrosas.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "chore(editorial): publicación automática de artículo programado"
+            git push origin main
+            echo "[OK] Cambios desplegados en origin/main con éxito."
+          else
+            echo "No hay cambios pendientes o la cola está vacía."
+          fi
