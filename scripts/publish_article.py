@@ -22,6 +22,17 @@ SPANISH_MONTHS = {
     7: "julio", 8: "agosto", 9: "septiembre", 10: "octubre", 11: "noviembre", 12: "diciembre"
 }
 
+CATEGORY_NAMES = {
+    "comunicacion": "Expresión Oral",
+    "comprension-lectora": "Comprensión Lectora",
+    "atencion-en-el-aula": "Atención en el Aula",
+    "escritura-creativa": "Escritura Creativa",
+    "pnl-aplicada": "PNL Aplicada",
+    "recursos-docentes": "Recursos Docentes",
+    "clima-de-aula": "Clima de Aula",
+    "biblioteca-practica": "Biblioteca"
+}
+
 def format_spanish_date(dt):
     return f"{dt.day} de {SPANISH_MONTHS[dt.month]} de {dt.year}"
 
@@ -72,6 +83,158 @@ def publish_one():
     print(f"Fecha: {spanish_date}")
     print(f"==========================================")
 
+RECOMMENDED_SIDEBAR_POSTS = [
+    {
+        "slug": "alumno-timido-exponer",
+        "title": "Alumno tímido: guía en 7 pasos para exponer sin ansiedad",
+        "img": "/wp-content/uploads/2026/08/articulo-001-destacada.webp"
+    },
+    {
+        "slug": "dinamicas-de-pnl-hablar-publico",
+        "title": "5 dinámicas de PNL para hablar en público en tercer grado",
+        "img": "/wp-content/uploads/2026/08/articulo-003-destacada.webp"
+    },
+    {
+        "slug": "estrategias-de-comprension-lectora",
+        "title": "Estrategias de comprensión lectora antes, durante y después",
+        "img": "/wp-content/uploads/2026/08/articulo-026-destacada.webp"
+    },
+    {
+        "slug": "tecnicas-de-pnl-atencion-aula",
+        "title": "Técnicas de PNL para recuperar la atención en el aula",
+        "img": "/wp-content/uploads/2026/08/articulo-051-destacada.webp"
+    }
+]
+
+def apply_editorial_layout_to_html(html, slug, title, cat_slug, cat_name, featured_img, publish_date):
+    if 'class="editorial-layout-wrapper"' in html:
+        return html
+
+    css_link = '<link rel="stylesheet" href="/wp-content/themes/astra/assets/css/editorial-article.css">'
+    if 'editorial-article.css' not in html:
+        html = html.replace('</head>', f'{css_link}\n</head>', 1)
+
+    rec_items = []
+    for p in RECOMMENDED_SIDEBAR_POSTS:
+        if p["slug"] != slug:
+            rec_items.append(f'''<li class="widget-recent-item">
+  <a href="/{p["slug"]}/">
+    <img src="{p["img"]}" alt="{p["title"]}" class="widget-recent-thumb" width="64" height="48" loading="lazy">
+    <span class="widget-recent-item-title">{p["title"]}</span>
+  </a>
+</li>''')
+        if len(rec_items) == 3:
+            break
+    rec_html = "\\n".join(rec_items)
+
+    sidebar_html = f'''<aside class="editorial-sidebar" aria-label="Barra lateral informativa">
+  <div class="editorial-widget widget-author">
+    <div class="widget-author-header">
+      <img src="/wp-content/uploads/2026/09/jessica-cabello-autora-retrato.webp" alt="Jessica Cabello Salirrosas" class="widget-author-avatar" width="76" height="76" loading="lazy">
+      <h3 class="widget-author-name">Jessica Cabello</h3>
+      <p class="widget-author-subtitle">Docente &middot; Especialista en PNL</p>
+    </div>
+    <p class="widget-author-bio">
+      Docente de Educación Primaria apasionada por la expresión oral, el modelado respetuoso y la comunicación auténtica en el aula. Autora del libro <em>La magia de PNL en el aula</em>.
+    </p>
+    <a href="/sobre-jessica/" class="widget-btn-secondary">Conocer a Jessica &rarr;</a>
+  </div>
+  <div class="editorial-widget widget-book">
+    <div class="widget-book-badge">Compendio Maestro</div>
+    <div class="widget-book-cover-wrap">
+      <a href="https://www.amazon.es/MAGIA-PNL-AULA-programaci%C3%B3n-neuroling%C3%BC%C3%ADstica/dp/B0DS9GLGS2" target="_blank" rel="noopener noreferrer">
+        <img src="/wp-content/uploads/2026/09/la-magia-de-pnl-en-el-aula-libro-3d-realista-v3.webp" alt="Portada del libro La magia de PNL en el aula" class="widget-book-cover" width="125" height="188" loading="lazy">
+      </a>
+    </div>
+    <h3 class="widget-book-title">La magia de PNL en el aula</h3>
+    <p class="widget-book-desc">
+      Guía didáctica completa (200 páginas) con 3 sesiones modelo, rúbricas de evaluación oral y herramientas prácticas para tercer grado.
+    </p>
+    <a href="https://www.amazon.es/MAGIA-PNL-AULA-programaci%C3%B3n-neuroling%C3%BC%C3%ADstica/dp/B0DS9GLGS2" target="_blank" rel="noopener noreferrer" class="widget-btn-primary">
+      Ver en Amazon KDP &rarr;
+    </a>
+    <a href="/el-libro/" class="widget-book-link">Ver índice y capítulos del libro</a>
+  </div>
+  <div class="editorial-widget widget-resources">
+    <div class="widget-resources-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+    </div>
+    <h3 class="widget-resources-title">Fichas y R&uacute;bricas PDF</h3>
+    <p class="widget-resources-desc">
+      Descarga gratis la <strong>R&uacute;brica de Expresi&oacute;n Oral</strong> y la <strong>Plantilla de Diagn&oacute;stico VAK</strong> listas para imprimir.
+    </p>
+    <a href="/recursos-descargables/" class="widget-btn-outline">
+      Descargar Recursos PDF &rarr;
+    </a>
+  </div>
+  <div class="editorial-widget widget-recent-posts">
+    <h3 class="widget-recent-title">Lecturas Recomendadas</h3>
+    <ul class="widget-recent-list">
+      {rec_html}
+    </ul>
+  </div>
+</aside>'''
+
+    words = len(re.findall(r'\\b\\w+\\b', html))
+    read_time = max(3, min(12, round(words / 250)))
+    clean_title = re.sub(r'<[^>]+>', '', title)
+    img_url = f"/wp-content/uploads/2026/08/{featured_img}" if not featured_img.startswith('/') else featured_img
+
+    hero_header = f'''<nav class="editorial-breadcrumbs" aria-label="Ruta de navegación">
+  <a href="/">Inicio</a>
+  <span class="editorial-breadcrumbs-separator">&rsaquo;</span>
+  <a href="/blog/">Blog</a>
+  <span class="editorial-breadcrumbs-separator">&rsaquo;</span>
+  <a href="/category/{cat_slug}/">{cat_name}</a>
+</nav>
+
+<header class="editorial-hero-header">
+  <div class="editorial-category-badge">
+    <a href="/category/{cat_slug}/">{cat_name}</a>
+  </div>
+  <h1 class="editorial-title">{title}</h1>
+  <div class="editorial-meta-bar">
+    <div class="editorial-author">
+      <img src="/wp-content/uploads/2026/09/jessica-cabello-autora-retrato.webp" alt="Jessica Cabello Salirrosas" class="editorial-avatar" width="46" height="46" loading="lazy">
+      <div class="editorial-author-info">
+        <a href="/sobre-jessica/" class="editorial-author-name">Jessica Cabello</a>
+        <span class="editorial-author-role">Docente de Primaria &middot; Autora</span>
+      </div>
+    </div>
+    <div class="editorial-meta-divider" aria-hidden="true"></div>
+    <div class="editorial-meta-info">
+      <span class="editorial-meta-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        {publish_date}
+      </span>
+      <span class="editorial-meta-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        {read_time} min de lectura
+      </span>
+    </div>
+  </div>
+  <div class="editorial-featured-media">
+    <img src="{img_url}" alt="{clean_title}" class="editorial-featured-img" width="1200" height="675" loading="eager">
+    <p class="editorial-featured-caption">Estrategias pedagógicas y recursos prácticos para el aula de comunicación en primaria.</p>
+  </div>
+</header>'''
+
+    old_header_pattern = re.compile(r'<header class="entry-header\\s*">[\\s\\S]*?</header>')
+    html = old_header_pattern.sub(hero_header, html, count=1)
+
+    content_start = re.search(r'<div class="entry-content clear"[^>]*itemprop="text">', html)
+    if not content_start:
+        content_start = re.search(r'<div class="entry-content clear"[^>]*>', html)
+
+    if content_start:
+        start_tag = content_start.group(0)
+        html = html.replace(start_tag, f'<div class="editorial-layout-wrapper">\\n<div class="editorial-main-content">\\n{start_tag}', 1)
+        article_end = '</article>'
+        if article_end in html:
+            html = html.replace(article_end, f'</div><!-- .editorial-main-content -->\\n{sidebar_html}\\n</div><!-- .editorial-layout-wrapper -->\\n{article_end}', 1)
+
+    return html
+
     # 1. Update dates in article index.html
     article_html_path = os.path.join(src_path, "index.html")
     if os.path.isfile(article_html_path):
@@ -82,7 +245,10 @@ def publish_one():
         article_html = article_html.replace("{{PUBLISH_DATE_SPANISH}}", spanish_date)
         article_html = article_html.replace("{{PUBLISH_DATE_ISO}}", iso_date)
         article_html = article_html.replace("{{PUBLISH_DATE_SHORT}}", short_date)
-        
+
+        # Apply editorial layout
+        article_html = apply_editorial_layout_to_html(article_html, slug, title, category, category_name, featured_img, spanish_date)
+
         with open(article_html_path, "w", encoding="utf-8") as f:
             f.write(article_html)
 
@@ -117,7 +283,7 @@ def update_blog_index(slug, num, title, excerpt, categories, category, category_
         html = f.read()
 
     cats_str = " ".join(categories)
-    cat_links_html = " ".join([f'<a href="/category/{c}/" rel="category tag">{category_name}</a>' for c in categories])
+    cat_links_html = " ".join([f'<a href="/category/{c}/" rel="category tag">{CATEGORY_NAMES.get(c, category_name)}</a>' for c in categories])
 
     card_html = f'''<article class="post-{num} post type-post status-publish format-standard has-post-thumbnail hentry category-{category} ast-grid-common-col ast-full-width ast-article-post remove-featured-img-padding" id="post-{num}" itemtype="https://schema.org/CreativeWork" itemscope="itemscope" data-categories="{cats_str}">
 \t<div class="ast-post-format- blog-layout-4 ast-article-inner">

@@ -154,6 +154,72 @@ h1,h2,h3,h4,h5,h6{margin-bottom:20px;}@media (min-width:922px){.ast-hide-display
     color: #ffffff;
 }
 
+
+/* Buscador integrado del Blog */
+.jessica-blog-search-container {
+    margin: 14px 0 16px 0;
+    width: 100%;
+}
+.jessica-blog-search-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 9999px;
+    padding: 2px 8px 2px 16px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+.jessica-blog-search-input-wrap:focus-within {
+    border-color: #173f35;
+    box-shadow: 0 0 0 3px rgba(23, 63, 53, 0.12), 0 4px 12px rgba(23, 63, 53, 0.08);
+}
+.jessica-blog-search-icon {
+    display: flex;
+    align-items: center;
+    color: #173f35;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+.jessica-blog-search-input {
+    flex: 1;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    padding: 10px 0 !important;
+    font-size: 0.95rem !important;
+    color: #1e293b !important;
+    box-shadow: none !important;
+    height: auto !important;
+}
+.jessica-blog-search-input::placeholder {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+.jessica-blog-search-clear {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    background: #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0;
+    transition: all 0.15s ease;
+    margin-right: 6px;
+}
+.jessica-blog-search-clear:hover {
+    background: #cbd5e1;
+    color: #0f172a;
+}
+
 /* Badges estilizados para las tarjetas de posts */
 .ast-taxonomy-container.cat-links {
     display: flex;
@@ -301,6 +367,20 @@ h1,h2,h3,h4,h5,h6{margin-bottom:20px;}@media (min-width:922px){.ast-hide-display
 		</h3>
 		<span class="jessica-filter-counter" id="jessica-active-count">Mostrando 55 artículos</span>
 	</div>
+	<!-- BUSCADOR DIRECTO CON LUPA INTEGRADO -->
+	<div class="jessica-blog-search-container">
+		<div class="jessica-blog-search-input-wrap">
+			<span class="jessica-blog-search-icon" aria-hidden="true">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="11" cy="11" r="8"></circle>
+					<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+				</svg>
+			</span>
+			<input type="search" id="jessica-blog-search-input" class="jessica-blog-search-input" placeholder="Buscar por tema, palabra clave o título en los 55 artículos..." autocomplete="off" spellcheck="false" aria-label="Buscar en los artículos del blog">
+			<button type="button" id="jessica-blog-search-clear" class="jessica-blog-search-clear" title="Limpiar búsqueda">&times;</button>
+		</div>
+	</div>
+
 	<div class="jessica-filter-pills">
 		<button class="jessica-filter-pill is-active" data-filter="all">Todos <span class="pill-count">55</span></button> <button class="jessica-filter-pill" data-filter="comunicacion">Expresión Oral <span class="pill-count">13</span></button> <button class="jessica-filter-pill" data-filter="comprension-lectora">Comprensión Lectora <span class="pill-count">20</span></button> <button class="jessica-filter-pill" data-filter="atencion-en-el-aula">Atención en el Aula <span class="pill-count">19</span></button> <button class="jessica-filter-pill" data-filter="escritura-creativa">Escritura Creativa <span class="pill-count">4</span></button> <button class="jessica-filter-pill" data-filter="pnl-aplicada">PNL Aplicada <span class="pill-count">3</span></button> <button class="jessica-filter-pill" data-filter="recursos-docentes">Recursos Docentes <span class="pill-count">5</span></button> <button class="jessica-filter-pill" data-filter="clima-de-aula">Clima de Aula <span class="pill-count">0</span></button> <button class="jessica-filter-pill" data-filter="biblioteca-practica">Biblioteca <span class="pill-count">0</span></button>
 	</div>
@@ -319,7 +399,7 @@ h1,h2,h3,h4,h5,h6{margin-bottom:20px;}@media (min-width:922px){.ast-hide-display
 				</div>
 			</div>
 			<span class="ast-blog-single-element ast-taxonomy-container cat-links default">
-				<a href="/category/comunicacion/" rel="category tag">Expresión Oral</a> <a href="/category/recursos-docentes/" rel="category tag">Expresión Oral</a>
+				<a href="/category/comunicacion/" rel="category tag">Expresión Oral</a> <a href="/category/recursos-docentes/" rel="category tag">Recursos Docentes</a>
 			</span>
 			<h2 class="entry-title ast-blog-single-element" itemprop="headline">
 				<a href="/preguntas-ayudan-ninos-hablar-mas-durante/" rel="bookmark">Preguntas que ayudan a los niños a hablar más durante una conversación</a>
@@ -352,7 +432,7 @@ h1,h2,h3,h4,h5,h6{margin-bottom:20px;}@media (min-width:922px){.ast-hide-display
 				</div>
 			</div>
 			<span class="ast-blog-single-element ast-taxonomy-container cat-links default">
-				<a href="/category/comunicacion/" rel="category tag">Expresión Oral</a> <a href="/category/recursos-docentes/" rel="category tag">Expresión Oral</a>
+				<a href="/category/comunicacion/" rel="category tag">Expresión Oral</a> <a href="/category/recursos-docentes/" rel="category tag">Recursos Docentes</a>
 			</span>
 			<h2 class="entry-title ast-blog-single-element" itemprop="headline">
 				<a href="/lectura-voz-alta-primaria-como-trabajar/" rel="bookmark">Lectura en voz alta en primaria: cómo trabajar fluidez, volumen y entonación</a>
@@ -2177,7 +2257,7 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
                         <span><kbd>Esc</kbd> Cerrar</span>
                     </div>
                     <div class="wpsa-search-brand">
-                        <span>WP Static Architect</span>
+                        <span>Jessica Cabello &middot; Educaci&oacute;n y Aula</span>
                     </div>
                 </div>
             </div>
@@ -2190,20 +2270,40 @@ document.addEventListener('DOMContentLoaded', function() {
     var articles = document.querySelectorAll('.ast-row article.post');
     var counterEl = document.getElementById('jessica-active-count');
     var noResultsEl = document.getElementById('jessica-no-results');
+    var searchInput = document.getElementById('jessica-blog-search-input');
+    var clearBtn = document.getElementById('jessica-blog-search-clear');
+    var currentCat = 'all';
 
-    function applyFilter(catSlug) {
-        pills.forEach(function(p) {
-            if (p.getAttribute('data-filter') === catSlug) {
-                p.classList.add('is-active');
-            } else {
-                p.classList.remove('is-active');
-            }
-        });
+    function normalizeText(str) {
+        if (!str) return '';
+        return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function applyFilters() {
+        var query = normalizeText(searchInput ? searchInput.value.trim() : '');
+        var tokens = query.split(/\s+/).filter(Boolean);
+
+        if (clearBtn) {
+            clearBtn.style.display = query.length > 0 ? 'inline-flex' : 'none';
+        }
 
         var visibleCount = 0;
         articles.forEach(function(art) {
             var artCats = (art.getAttribute('data-categories') || '').split(' ');
-            if (catSlug === 'all' || artCats.indexOf(catSlug) !== -1) {
+            var matchesCat = (currentCat === 'all' || artCats.indexOf(currentCat) !== -1);
+
+            var matchesQuery = true;
+            if (tokens.length > 0) {
+                var artText = normalizeText(art.textContent || '');
+                for (var i = 0; i < tokens.length; i++) {
+                    if (artText.indexOf(tokens[i]) === -1) {
+                        matchesQuery = false;
+                        break;
+                    }
+                }
+            }
+
+            if (matchesCat && matchesQuery) {
                 art.classList.remove('is-hidden');
                 visibleCount++;
             } else {
@@ -2212,10 +2312,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         if (counterEl) {
-            counterEl.textContent = 'Mostrando ' + visibleCount + ' de ' + articles.length + ' artículos';
+            if (query.length > 0) {
+                counterEl.textContent = 'Mostrando ' + visibleCount + ' de ' + articles.length + ' artículos para "' + searchInput.value.trim() + '"';
+            } else if (currentCat !== 'all') {
+                counterEl.textContent = 'Mostrando ' + visibleCount + ' de ' + articles.length + ' artículos en esta categoría';
+            } else {
+                counterEl.textContent = 'Mostrando ' + visibleCount + ' artículos';
+            }
         }
+
         if (noResultsEl) {
             noResultsEl.style.display = (visibleCount === 0) ? 'block' : 'none';
+            if (visibleCount === 0) {
+                noResultsEl.innerHTML = '<p style="margin:0 0 8px;font-weight:700;color:#1e293b;">No se encontraron artículos</p><p style="margin:0;font-size:0.9rem;">No hay publicaciones que coincidan con tu búsqueda. Intenta con otros términos o <a href="#" id="jessica-reset-filters" style="color:#c46e4f;font-weight:700;">restablece los filtros</a>.</p>';
+                var resetBtn = document.getElementById('jessica-reset-filters');
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (searchInput) searchInput.value = '';
+                        currentCat = 'all';
+                        pills.forEach(function(p) {
+                            if (p.getAttribute('data-filter') === 'all') p.classList.add('is-active');
+                            else p.classList.remove('is-active');
+                        });
+                        applyFilters();
+                    });
+                }
+            }
         }
     }
 
@@ -2223,7 +2346,15 @@ document.addEventListener('DOMContentLoaded', function() {
         pill.addEventListener('click', function(e) {
             e.preventDefault();
             var targetFilter = this.getAttribute('data-filter');
-            applyFilter(targetFilter);
+            currentCat = targetFilter;
+            pills.forEach(function(p) {
+                if (p.getAttribute('data-filter') === targetFilter) {
+                    p.classList.add('is-active');
+                } else {
+                    p.classList.remove('is-active');
+                }
+            });
+            applyFilters();
             if (history.pushState) {
                 var newUrl = targetFilter === 'all' ? window.location.pathname : window.location.pathname + '#' + targetFilter;
                 history.pushState(null, '', newUrl);
@@ -2231,10 +2362,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    if (searchInput) {
+        searchInput.addEventListener('input', applyFilters);
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                applyFilters();
+            }
+        });
+    }
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.focus();
+            }
+            applyFilters();
+        });
+    }
+
     var hash = window.location.hash.replace('#', '');
     if (hash && document.querySelector('.jessica-filter-pill[data-filter="' + hash + '"]')) {
-        applyFilter(hash);
+        currentCat = hash;
+        pills.forEach(function(p) {
+            if (p.getAttribute('data-filter') === hash) p.classList.add('is-active');
+            else p.classList.remove('is-active');
+        });
     }
+
+    applyFilters();
 });
 </script>
 
