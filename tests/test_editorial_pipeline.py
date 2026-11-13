@@ -86,6 +86,20 @@ class EditorialPipelineTests(unittest.TestCase):
         headers = (root / "_headers").read_text(encoding="utf-8")
         self.assertIn("X-Robots-Tag: noindex, nofollow, noarchive", headers)
 
+    def test_home_hero_uses_compact_webp_with_preload(self):
+        root = Path(__file__).resolve().parents[1]
+        home = (root / "index.html").read_text(encoding="utf-8")
+        webp_name = "jessica-home-hero-1600.webp"
+        webp = root / "wp-content/uploads/2026/08" / webp_name
+        self.assertTrue(webp.is_file())
+        self.assertLess(webp.stat().st_size, 150000)
+        self.assertGreater(webp.stat().st_size, 10000)
+        self.assertEqual(webp.read_bytes()[:4], b"RIFF")
+        self.assertIn('background-image:url(', home)
+        self.assertIn(webp_name, home)
+        self.assertIn('rel="preload" as="image"', home)
+        self.assertNotIn("jessica-home-hero.png');background-size", home)
+
     def test_featured_image_uses_existing_month(self):
         month = self.root / "wp-content/uploads/2026/09"
         month.mkdir(parents=True)
