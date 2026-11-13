@@ -74,6 +74,18 @@ class EditorialPipelineTests(unittest.TestCase):
         with self.assertRaises(FileNotFoundError):
             publisher.publish_one()
 
+
+    def test_draft_queue_is_redirected_outside_public_site(self):
+        root = Path(__file__).resolve().parents[1]
+        redirects = (root / "_redirects").read_text(encoding="utf-8")
+        lines = [line.split() for line in redirects.splitlines()
+                 if line.strip() and not line.lstrip().startswith("#")]
+        self.assertIn(["/_queue/*", "/blog/", "302"], lines)
+        self.assertFalse(any(rule[-1] == "404" for rule in lines),
+                         "Cloudflare Pages does not support 404 rewrites in _redirects")
+        headers = (root / "_headers").read_text(encoding="utf-8")
+        self.assertIn("X-Robots-Tag: noindex, nofollow, noarchive", headers)
+
     def test_featured_image_uses_existing_month(self):
         month = self.root / "wp-content/uploads/2026/09"
         month.mkdir(parents=True)

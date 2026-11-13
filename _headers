@@ -14,6 +14,9 @@
 /wp-content/plugins/*
   Cache-Control: public, max-age=86400
 
+/_queue/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff

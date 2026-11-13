@@ -4,12 +4,16 @@ on:
   push:
     paths:
       - scripts/publish_article.py
+      - _redirects
+      - _headers
       - tests/test_editorial_pipeline.py
       - .github/workflows/publish-daily-articles.yml
       - .github/workflows/editorial-tests.yml
   pull_request:
     paths:
       - scripts/publish_article.py
+      - _redirects
+      - _headers
       - tests/test_editorial_pipeline.py
       - .github/workflows/publish-daily-articles.yml
       - .github/workflows/editorial-tests.yml
