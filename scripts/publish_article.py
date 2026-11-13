@@ -215,7 +215,7 @@ def apply_editorial_layout_to_html(html, slug, title, cat_slug, cat_name, featur
   </div>
 </aside>'''
 
-    words = len(re.findall(r'\\b\\w+\\b', html))
+    words = len(re.findall(r'\b\w+\b', html))
     read_time = max(3, min(12, round(words / 250)))
     clean_title = re.sub(r'<[^>]+>', '', title)
     if featured_img.startswith("/"):
@@ -269,7 +269,7 @@ def apply_editorial_layout_to_html(html, slug, title, cat_slug, cat_name, featur
   </div>
 </header>'''
 
-    old_header_pattern = re.compile(r'<header class="entry-header\\s*">[\\s\\S]*?</header>')
+    old_header_pattern = re.compile(r'<header class="entry-header\s*">[\s\S]*?</header>')
     html = old_header_pattern.sub(hero_header, html, count=1)
 
     content_start = re.search(r'<div class="entry-content clear"[^>]*itemprop="text">', html)

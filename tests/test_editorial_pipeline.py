@@ -84,6 +84,8 @@ class EditorialPipelineTests(unittest.TestCase):
             "articulo-001-destacada.webp", "12 de noviembre de 2026",
         )
         self.assertIn("/wp-content/uploads/2026/09/articulo-001-destacada.webp", result)
+        self.assertIn('class="editorial-featured-img"', result)
+        self.assertIn('class="editorial-hero-header"', result)
 
 
 if __name__ == "__main__":
