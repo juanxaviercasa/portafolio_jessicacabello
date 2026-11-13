@@ -57,8 +57,7 @@ def publish_one():
     meta_path = os.path.join(src_path, "meta.json")
 
     if not os.path.isfile(meta_path):
-        print(f"Error: {meta_path} no encontrado.")
-        return False
+        raise FileNotFoundError(f"Falta el archivo de metadatos: {meta_path}")
 
     with open(meta_path, "r", encoding="utf-8") as f:
         meta = json.load(f)
@@ -82,6 +81,47 @@ def publish_one():
     print(f"Slug: {slug} | Categoria: {category_name}")
     print(f"Fecha: {spanish_date}")
     print(f"==========================================")
+
+    # 1. Update dates in article index.html
+    article_html_path = os.path.join(src_path, "index.html")
+    if os.path.isfile(article_html_path):
+        with open(article_html_path, "r", encoding="utf-8") as f:
+            article_html = f.read()
+
+        # Replace placeholders
+        article_html = article_html.replace("{{PUBLISH_DATE_SPANISH}}", spanish_date)
+        article_html = article_html.replace("{{PUBLISH_DATE_ISO}}", iso_date)
+        article_html = article_html.replace("{{PUBLISH_DATE_SHORT}}", short_date)
+
+        # Apply editorial layout
+        article_html = apply_editorial_layout_to_html(article_html, slug, title, category, category_name, featured_img, spanish_date)
+
+        with open(article_html_path, "w", encoding="utf-8") as f:
+            f.write(article_html)
+
+    # 2. Destination directory in root
+    dest_path = os.path.join(REPO_DIR, slug)
+    if os.path.exists(dest_path):
+        raise FileExistsError(
+            f"No se publicará {slug}: la ruta ya existe. Revisa el artículo antes de sobrescribirlo."
+        )
+    shutil.move(src_path, dest_path)
+    print(f"[OK] Movido a: /{slug}/")
+
+    # 3. Update blog/index.html
+    update_blog_index(slug, num, title, excerpt, categories, category, category_name, featured_img, spanish_date)
+
+    # 4. Update category archive
+    update_category_archive(category, slug, num, title, excerpt, category_name, featured_img, spanish_date)
+
+    # 5. Update sitemap.xml
+    update_sitemap(slug, short_date)
+
+    # 6. Update search-index.json
+    update_search_index(slug, title, excerpt, categories)
+
+    print(f"[OK] Articulo #{num:03d} '{title}' publicado con exito!\n")
+    return True
 
 RECOMMENDED_SIDEBAR_POSTS = [
     {
@@ -178,7 +218,17 @@ def apply_editorial_layout_to_html(html, slug, title, cat_slug, cat_name, featur
     words = len(re.findall(r'\\b\\w+\\b', html))
     read_time = max(3, min(12, round(words / 250)))
     clean_title = re.sub(r'<[^>]+>', '', title)
-    img_url = f"/wp-content/uploads/2026/08/{featured_img}" if not featured_img.startswith('/') else featured_img
+    if featured_img.startswith("/"):
+        img_url = featured_img
+    else:
+        candidates = [
+            f"/wp-content/uploads/2026/09/{featured_img}",
+            f"/wp-content/uploads/2026/08/{featured_img}",
+        ]
+        img_url = next(
+            (url for url in candidates if os.path.isfile(os.path.join(REPO_DIR, url.lstrip("/")))),
+            candidates[0],
+        )
 
     hero_header = f'''<nav class="editorial-breadcrumbs" aria-label="Ruta de navegación">
   <a href="/">Inicio</a>
@@ -235,44 +285,6 @@ def apply_editorial_layout_to_html(html, slug, title, cat_slug, cat_name, featur
 
     return html
 
-    # 1. Update dates in article index.html
-    article_html_path = os.path.join(src_path, "index.html")
-    if os.path.isfile(article_html_path):
-        with open(article_html_path, "r", encoding="utf-8") as f:
-            article_html = f.read()
-
-        # Replace placeholders
-        article_html = article_html.replace("{{PUBLISH_DATE_SPANISH}}", spanish_date)
-        article_html = article_html.replace("{{PUBLISH_DATE_ISO}}", iso_date)
-        article_html = article_html.replace("{{PUBLISH_DATE_SHORT}}", short_date)
-
-        # Apply editorial layout
-        article_html = apply_editorial_layout_to_html(article_html, slug, title, category, category_name, featured_img, spanish_date)
-
-        with open(article_html_path, "w", encoding="utf-8") as f:
-            f.write(article_html)
-
-    # 2. Destination directory in root
-    dest_path = os.path.join(REPO_DIR, slug)
-    if os.path.exists(dest_path):
-        shutil.rmtree(dest_path)
-    shutil.move(src_path, dest_path)
-    print(f"[OK] Movido a: /{slug}/")
-
-    # 3. Update blog/index.html
-    update_blog_index(slug, num, title, excerpt, categories, category, category_name, featured_img, spanish_date)
-
-    # 4. Update category archive
-    update_category_archive(category, slug, num, title, excerpt, category_name, featured_img, spanish_date)
-
-    # 5. Update sitemap.xml
-    update_sitemap(slug, short_date)
-
-    # 6. Update search-index.json
-    update_search_index(slug, title, excerpt, categories)
-
-    print(f"[OK] Articulo #{num:03d} '{title}' publicado con exito!\n")
-    return True
 
 def update_blog_index(slug, num, title, excerpt, categories, category, category_name, featured_img, spanish_date):
     blog_path = os.path.join(REPO_DIR, "blog", "index.html")

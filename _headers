@@ -1,15 +1,21 @@
-# ==========================================
-# Netlify _headers generados por WP Static Architect
-# ==========================================
+# Políticas de caché aptas para Cloudflare Pages.
+# Los artículos se publican varias veces por día: no almacenar HTML de forma inmutable.
+# Los recursos de WordPress se reutilizan, pero pueden actualizarse sin cambiar nombre.
 
 /wp-content/uploads/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 
 /wp-static-arquitect-assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400
+
+/wp-content/themes/*
+  Cache-Control: public, max-age=86400
+
+/wp-content/plugins/*
+  Cache-Control: public, max-age=86400
 
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
-  X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()

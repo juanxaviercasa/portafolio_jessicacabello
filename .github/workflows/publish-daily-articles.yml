@@ -19,9 +19,15 @@ on:
 permissions:
   contents: write
 
+# Evitar que dos ejecuciones programadas editen simultáneamente la cola.
+concurrency:
+  group: jessica-editorial-publication
+  cancel-in-progress: false
+
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Descargar repositorio
@@ -34,10 +40,18 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Verificar el motor editorial antes de publicar
+        run: python -m unittest discover -s tests -p 'test_editorial_pipeline.py' -v
+
       - name: Ejecutar publicador editorial
+        env:
+          PUBLISH_COUNT: ${{ github.event.inputs.count || '1' }}
         run: |
-          COUNT="${{ github.event.inputs.count || 1 }}"
-          python scripts/publish_article.py --count "$COUNT"
+          if ! [[ "$PUBLISH_COUNT" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::Cantidad inválida: $PUBLISH_COUNT"
+            exit 1
+          fi
+          python scripts/publish_article.py --count "$PUBLISH_COUNT"
 
       - name: Confirmar y subir cambios a main
         run: |
